@@ -5,10 +5,13 @@ $verde: #00be65;
 $amarillo: #fdbf50;
 $test: #929292;
 body{
+  min-height: 100vh;
   width: 100%;
   font-size: 1.2em;
   margin: auto;
-  background-color: $AzulBackgroud;
+  background-image: linear-gradient(to bottom, #2c1654 10%, #552121 100% );
+  background-repeat: no-repeat;
+  font-family: Montserrat;
 }
 .wrapper{
   background-size: 2em;

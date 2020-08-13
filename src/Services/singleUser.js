@@ -1,4 +1,3 @@
-import React from 'react'
 
 function singleUser(user) {
   let apiUrl = `https://reqres.in/api/users/${user}`;

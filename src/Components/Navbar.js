@@ -3,7 +3,10 @@ import styled from "styled-components";
 import logo from "../logo.png"
 const DivNavBar = styled.div`
 .navbar{
-  padding: 1em 2em;
+  padding: 3em 0 0 4em;
+  img{
+    height: 3em;
+  }
 }
 `;
 function Navbar() {
