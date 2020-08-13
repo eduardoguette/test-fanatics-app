@@ -6,6 +6,8 @@ body {
 }
 
 .wrapper {
+  background-size: 2em;
+  background: url("../../football.png") center center;
   width: 90%;
   margin: auto;
 }

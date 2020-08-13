@@ -3,7 +3,7 @@ $AzulBackgroud: #2c1654;
 $Red: #ff6464;
 $verde: #00be65;
 $amarillo: #fdbf50;
-$test: #4e2424;
+$test: #929292;
 body{
   width: 100%;
   font-size: 1.2em;
@@ -11,6 +11,8 @@ body{
   background-color: $AzulBackgroud;
 }
 .wrapper{
+  background-size: 2em;
+  background: url("../../football.png") center center;
   width: 90%;
   margin: auto;
 }

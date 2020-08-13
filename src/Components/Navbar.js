@@ -11,7 +11,7 @@ function Navbar() {
     <DivNavBar>
       <nav className="navbar navbar-light ">
         <a className="navbar-brand" href="#">
-          <img src={logo} height="70" className="d-inline-block align-top" alt="" loading="lazy" />
+          <img src={logo} height="70" className="d-inline-block align-top" alt="top" loading="lazy" />
         </a>
       </nav>
     </DivNavBar>
