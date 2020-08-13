@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import logo from "../logo.svg"
+import logo from "../logo.png"
 const DivNavBar = styled.div`
 .navbar{
   padding: 1em 2em;
