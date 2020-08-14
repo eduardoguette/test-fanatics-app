@@ -1,6 +1,5 @@
-
-function singleUser(user) {
-  let apiUrl = `https://reqres.in/api/users/${user}`;
+function singleUser(id = 1) {
+  let apiUrl = `https://reqres.in/api/users/${id}`;
 
   return fetch(apiUrl)
     .then((response) => response.json())
@@ -11,4 +10,4 @@ function singleUser(user) {
     .catch((error) => console.log(error));
 }
 
-export default singleUser
+export default singleUser;

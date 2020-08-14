@@ -3,21 +3,16 @@ import "./Styles/scss/styles.css";
 import ListUser from "./Components/ListUser";
 import Navbar from "./Components/Navbar";
 import User from "./Components/User";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 function App() {
+
   return (
     <Fragment>
       <Navbar />
-      <Router>
-        <Switch>
-          <Route path="/">
-            <ListUser />
-          </Route>
-          <Route path="/search/:id">
-            <User />
-          </Route>
-        </Switch>
-      </Router>
+      <BrowserRouter>
+        <Route exact path="/user/:id" component={User} />
+        <Route exact path="/" component={ListUser} />
+      </BrowserRouter>
     </Fragment>
   );
 }

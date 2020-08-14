@@ -12,12 +12,10 @@ const DivListUser = styled.div`
     margin: 1em auto;
     .media {
       margin: 1em;
-      display: flex;
-      align-items: center;
       background-color: #000f25;
       border-radius: 8px;
       padding: 1em;
-      width: 400px;
+      min-width: 400px;
       .media-body {
         margin: auto;
         strong {
@@ -86,22 +84,22 @@ function ListUser() {
       }
     }
   `;
+
   return (
     <>
       <DivListUser>
         <div className="list-users">
           {users.length > 1 ? (
-            users.map(({ first_name, id, avatar, last_name }) => (
+            users.map(({ first_name, id, avatar, last_name, email }) => (
               <div className="media" key={id} id={id}>
                 <img src={avatar} className="mr-3" alt={first_name} />
                 <div className="media-body">
                   <strong>Name: </strong>
                   <br />
-                  <Router>
-                    <Link to={`search/${id}`} className="mt-0">
+                  
+                    <Link to={`/user/${id}`}>
                       {first_name} {last_name}
                     </Link>
-                  </Router>
                 </div>
               </div>
             ))
