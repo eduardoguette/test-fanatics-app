@@ -16,7 +16,8 @@ const DivUser = styled.div`
   }
   .spinner-grow,
   .done,
-  .form {
+  .form,
+  #myDiv {
     display: none;
   }
   .col.py-3 {
@@ -27,6 +28,43 @@ const DivUser = styled.div`
     border-radius: 100%;
     border: 3px solid white;
     padding: 0.5em;
+  }
+  .container-img{
+    width: 100px;
+    height: 100px;
+  }
+  img.avatar:hover {
+    cursor: pointer;
+    border: 3px solid linear-gradient(red, blue);
+  }
+  .animate-bottom {
+    position: relative;
+    -webkit-animation-name: animatebottom;
+    -webkit-animation-duration: 1s;
+    animation-name: animatebottom;
+    animation-duration: 1s;
+  }
+
+  @-webkit-keyframes animatebottom {
+    from {
+      bottom: -100px;
+      opacity: 0;
+    }
+    to {
+      bottom: 0px;
+      opacity: 1;
+    }
+  }
+
+  @keyframes animatebottom {
+    from {
+      bottom: -100px;
+      opacity: 0;
+    }
+    to {
+      bottom: 0;
+      opacity: 1;
+    }
   }
 `;
 
@@ -52,9 +90,9 @@ function User() {
     document.querySelector(".container-btns").style.display = "none";
   };
   const handleCancel = () => {
-    document.querySelector(".form").style.display = "none"
+    document.querySelector(".form").style.display = "none";
     document.querySelector(".container-btns").style.display = "block";
-  }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const name = document.querySelector(".name").value;
@@ -64,11 +102,11 @@ function User() {
     document.querySelector(".spinner-grow").style.display = "block";
     setTimeout(() => {
       document.querySelector(".spinner-grow").style.display = "none";
-      document.querySelector(".done").style.display = "block";
+      document.querySelector(".container-btns").style.display = "block";
+      document.getElementById("myDiv").style.display = "block";
       setTimeout(() => {
-        document.querySelector(".done").style.display = "none";
-        document.querySelector(".container-btns").style.display = "block";
-      }, 1000);
+        if (document.getElementById("myDiv")) document.getElementById("myDiv").style.display = "none";
+      }, 10000);
     }, 1000);
     const user = {
       first_name: name,
@@ -77,7 +115,7 @@ function User() {
     };
     const headers = new Headers({
       "Content-Type": "application/json",
-      "Accept": "application/json",
+      Accept: "application/json",
     });
     fetch("https://reqres.in/api/users", {
       method: "POST",
@@ -117,7 +155,7 @@ function User() {
             {users.first_name} {users.last_name}
           </h1>
           <p>{users.email}</p>
-          <img className="avatar" src={users.avatar} alt={users.first_name} />
+            <img className="avatar" src={users.avatar} alt={users.first_name} />
         </div>
         <div className="container-btns">
           <button type="button" onClick={hadleform} className="btn btn-info">
@@ -127,11 +165,11 @@ function User() {
             Delete user
           </button>
         </div>
-        <div className="container spinner-grow text-primary" role="status">
+        <div className="container spinner-grow mt-5 text-primary" role="status">
           <span className="sr-only">Loading...</span>
         </div>
-        <div className="done">
-          <img src={gif} alt="gif" />
+        <div id="myDiv" className="animate-bottom">
+          <h2>Profile Updated! 🎉</h2>
         </div>
         <form action="#" onSubmit={handleSubmit} className="form">
           <div className="form-col container">

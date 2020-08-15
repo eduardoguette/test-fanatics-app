@@ -120,7 +120,7 @@ function ListUser() {
       <DivListUser>
         <div className="container-sm list-users">
           {users.length > 0 ? (
-            users.map(({ first_name, id, avatar, last_name, email }) => (
+            users.map(({ first_name, id, avatar, last_name }) => (
               <div className="media" key={id} id={id}>
                 <img src={avatar} className="mr-3" alt={first_name} />
                 <div className="media-body">
@@ -134,7 +134,7 @@ function ListUser() {
             ))
           ) : (
             <div className="no-result" role="alert">
-              no results...
+              no more profiles...
             </div>
           )}
         </div>
