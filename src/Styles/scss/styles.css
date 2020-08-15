@@ -15,4 +15,31 @@ body {
   width: 90%;
   margin: auto;
 }
+
+@media screen and (max-width: 540px) {
+  .container-btns {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .container-btns button {
+    font-size: 0.7em;
+  }
+}
+
+.back {
+  max-width: 290px;
+  margin: auto;
+  margin-bottom: 1em;
+}
+
+.back a {
+  margin-bottom: 1000em !important;
+}
 /*# sourceMappingURL=styles.css.map */

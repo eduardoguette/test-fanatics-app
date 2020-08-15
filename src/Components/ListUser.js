@@ -62,26 +62,28 @@ function ListUser() {
       var tmp = localStorage;
       if (localStorage.length > 0) {
         let arrayLocalStorage = [];
-
         let newObject = data;
         for (var i in tmp) {
           if (typeof tmp[i] == "function") continue;
           if (typeof tmp[i] == "number") continue;
-          arrayLocalStorage.push(JSON.parse(tmp[i]));
+          if (tmp[i].includes("avatar")) arrayLocalStorage.push(JSON.parse(tmp[i]));
         }
-        let editUsers = [...arrayLocalStorage, newObject].flat();
-        // Filtrar duplicados
-        let hash = {};
-        editUsers = editUsers.filter((o) => (hash[o.id] ? false : (hash[o.id] = true)));
-        //Ordenamos array
-        var ordenArray = editUsers.sort((a, b) => a.id - b.id);
-        if (data[0] || data[5]) {
-          var max = data[5].id;
-          var min = data[0].id;
-          var usuarios = ordenArray.filter(({ id }, i) => id <= max && id >= min);
-          setUsers(usuarios);
-        }else{
-          setUsers([]);
+
+        if (arrayLocalStorage.length > 0) {
+          let editUsers = [...arrayLocalStorage, newObject].flat();
+          // Filtrar duplicados
+          let hash = {};
+          editUsers = editUsers.filter((o) => (hash[o.id] ? false : (hash[o.id] = true)));
+          //Ordenamos la lista de usuarios por id
+          var ordenArray = editUsers.sort((a, b) => a.id - b.id);
+          if (data[0] || data[5]) {
+            var max = data[5].id;
+            var min = data[0].id;
+            var usuarios = ordenArray.filter(({ id }) => id <= max && id >= min);
+            setUsers(usuarios);
+          } else {
+            setUsers([]);
+          }
         }
       } else {
         setUsers(data);

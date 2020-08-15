@@ -4,18 +4,37 @@ $Red: #ff6464;
 $verde: #00be65;
 $amarillo: #fdbf50;
 $test: #f1fd50;
-body{
+body {
   min-height: 100vh;
   width: 100%;
   font-size: 1.2em;
   margin: auto;
-  background-image: linear-gradient(to bottom, #2c1654 10%, #552121 100% );
+  background-image: linear-gradient(to bottom, #2c1654 10%, #552121 100%);
   background-repeat: no-repeat;
   font-family: Montserrat;
 }
-.wrapper{
+.wrapper {
   background-size: 2em;
   background: url("../../football.png") center center;
   width: 90%;
   margin: auto;
+}
+@media screen and (max-width: 540px) {
+  .container-btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+      font-size: 0.7em;
+    }
+  }
+}
+
+.back {
+  max-width: 290px;
+  margin: auto;
+  margin-bottom: 1em;
+  a {
+    margin-bottom: 1000em !important;
+  }
 }
