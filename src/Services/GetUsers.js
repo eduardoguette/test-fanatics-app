@@ -1,7 +1,6 @@
-function GetUsers(pagina = 1) {
+async function GetUsers(pagina = 1) {
   let apiUrl = `https://reqres.in/api/users/?page=${pagina}`;
-
-  return fetch(apiUrl)
+  return await fetch(apiUrl)
     .then((response) => response.json())
     .then((data) => {
       const users = data.data;

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import { Link } from "react-router-dom";
 import GetUsers from "../Services/GetUsers";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
+import styled from "styled-components";
+
+// eslint-disable-next-line
 const DivListUser = styled.div`
   display: flex;
   flex-direction: column;
@@ -53,9 +55,37 @@ const DivListUser = styled.div`
 function ListUser() {
   const [users, setUsers] = useState([]);
   const [count, setCount] = useState(1);
+
   useEffect(() => {
     GetUsers(count).then((data) => {
-      setUsers(data);
+      // eslint-disable-next-line
+      var tmp = localStorage;
+      if (localStorage.length > 0) {
+        let arrayLocalStorage = [];
+
+        let newObject = data;
+        for (var i in tmp) {
+          if (typeof tmp[i] == "function") continue;
+          if (typeof tmp[i] == "number") continue;
+          arrayLocalStorage.push(JSON.parse(tmp[i]));
+        }
+        let editUsers = [...arrayLocalStorage, newObject].flat();
+        // Filtrar duplicados
+        let hash = {};
+        editUsers = editUsers.filter((o) => (hash[o.id] ? false : (hash[o.id] = true)));
+        //Ordenamos array
+        var ordenArray = editUsers.sort((a, b) => a.id - b.id);
+        if (data[0] || data[5]) {
+          var max = data[5].id;
+          var min = data[0].id;
+          var usuarios = ordenArray.filter(({ id }, i) => id <= max && id >= min);
+          setUsers(usuarios);
+        }else{
+          setUsers([]);
+        }
+      } else {
+        setUsers(data);
+      }
     });
   }, [count]);
 
@@ -89,17 +119,16 @@ function ListUser() {
     <>
       <DivListUser>
         <div className="list-users">
-          {users.length > 1 ? (
+          {users.length > 0 ? (
             users.map(({ first_name, id, avatar, last_name, email }) => (
               <div className="media" key={id} id={id}>
                 <img src={avatar} className="mr-3" alt={first_name} />
                 <div className="media-body">
                   <strong>Name: </strong>
                   <br />
-                  
-                    <Link to={`/user/${id}`}>
-                      {first_name} {last_name}
-                    </Link>
+                  <Link to={`/user/${id}`}>
+                    {first_name} {last_name}
+                  </Link>
                 </div>
               </div>
             ))
