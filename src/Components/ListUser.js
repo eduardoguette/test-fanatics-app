@@ -12,12 +12,12 @@ const DivListUser = styled.div`
   .list-users {
     height: 100%;
     margin: 1em auto;
+    max-width: 600px;
     .media {
       margin: 1em;
       background-color: #000f25;
       border-radius: 8px;
       padding: 1em;
-      min-width: 400px;
       .media-body {
         margin: auto;
         strong {
@@ -118,7 +118,7 @@ function ListUser() {
   return (
     <>
       <DivListUser>
-        <div className="list-users">
+        <div className="container-sm list-users">
           {users.length > 0 ? (
             users.map(({ first_name, id, avatar, last_name, email }) => (
               <div className="media" key={id} id={id}>

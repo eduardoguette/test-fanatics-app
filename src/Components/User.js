@@ -77,7 +77,7 @@ function User() {
     };
     const headers = new Headers({
       "Content-Type": "application/json",
-      Accept: "application/json",
+      "Accept": "application/json",
     });
     fetch("https://reqres.in/api/users", {
       method: "POST",
