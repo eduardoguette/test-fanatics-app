@@ -59,10 +59,13 @@ const DivUser = styled.div`
     -webkit-animation-duration: 1s;
     animation-name: animatebottom;
     animation-duration: 1s;
+    h2{
+      font-size: 1em;
+    }
   }
   .delete {
     position: relative;
-    animation: fade 0.5s ease;
+    animation: fade .7s ease;
   }
   @keyframes fade {
     from {

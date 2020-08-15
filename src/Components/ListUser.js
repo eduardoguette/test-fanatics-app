@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import GetUsers from "../Services/GetUsers";
 
 import styled from "styled-components";
+import Spinner from "./Spinner";
 
 // eslint-disable-next-line
 const DivListUser = styled.div`
@@ -13,6 +14,9 @@ const DivListUser = styled.div`
     height: 100%;
     margin: 1em auto;
     max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     .media {
       margin: 1em;
       background-color: #000f25;
@@ -45,9 +49,10 @@ const DivListUser = styled.div`
     }
 
     .no-result {
-      font-size: 2em;
+      font-size: 1em;
       font-weight: 500;
       color: white;
+      text-align: center;
     }
   }
 `;
@@ -55,50 +60,68 @@ const DivListUser = styled.div`
 function ListUser() {
   const [users, setUsers] = useState([]);
   const [count, setCount] = useState(1);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
+    setLoading(true);
     GetUsers(count).then((data) => {
       // eslint-disable-next-line
       var tmp = localStorage;
-      if (localStorage.length > 0) {
-        let arrayLocalStorage = [];
-        let newObject = data;
-        for (var i in tmp) {
-          if (typeof tmp[i] == "function") continue;
-          if (typeof tmp[i] == "number") continue;
-          if (tmp[i].includes("avatar")) arrayLocalStorage.push(JSON.parse(tmp[i]));
-        }
-
-        if (arrayLocalStorage.length > 0) {
-          let editUsers = [...arrayLocalStorage, newObject].flat();
-          // Filtrar duplicados
-          let hash = {};
-          editUsers = editUsers.filter((o) => (hash[o.id] ? false : (hash[o.id] = true)));
-          //Ordenamos la lista de usuarios por id
-          var ordenArray = editUsers.sort((a, b) => a.id - b.id);
-          if (data[0] || data[5]) {
-            var max = data[5].id;
-            var min = data[0].id;
-            var usuarios = ordenArray.filter(({ id }) => id <= max && id >= min);
-            setUsers(usuarios);
-          } else {
-            setUsers([]);
+      setTimeout(() => {
+        if (localStorage.length > 0) {
+          let arrayLocalStorage = [];
+          let newObject = data;
+          for (var i in tmp) {
+            if (typeof tmp[i] == "function") continue;
+            if (typeof tmp[i] == "number") continue;
+            if (tmp[i].includes("avatar")) arrayLocalStorage.push(JSON.parse(tmp[i]));
           }
+
+          if (arrayLocalStorage.length > 0) {
+            let editUsers = [...arrayLocalStorage, newObject].flat();
+            // Filtrar duplicados
+            let hash = {};
+            editUsers = editUsers.filter((o) => (hash[o.id] ? false : (hash[o.id] = true)));
+            //Ordenamos la lista de usuarios por id
+            var ordenArray = editUsers.sort((a, b) => a.id - b.id);
+            if (data[0] || data[5]) {
+              var max = data[5].id;
+              var min = data[0].id;
+              var usuarios = ordenArray.filter(({ id }) => id <= max && id >= min);
+              setUsers(usuarios);
+            } else {
+              setUsers([]);
+            }
+          }
+        } else {
+          setUsers(data);
         }
-      } else {
-        setUsers(data);
-      }
+        setLoading(false);
+      }, 500);
     });
   }, [count]);
 
   const DivNav = styled.div`
     margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    .title-no-users {
+      display: ${users.length < 1 && !loading ? "block" : "none"};
+      color: white;
+      text-align: center;
+      margin: 3em auto;
+      span {
+        text-align: center;
+      }
+    }
     nav > ul {
       li {
         a {
           font-weight: bold;
           color: #000f25;
-          padding: 0.7em 1.6em;
+          padding: 0.5em 1em;
+          font-size: 0.9em;
         }
       }
       li:hover {
@@ -121,7 +144,9 @@ function ListUser() {
     <>
       <DivListUser>
         <div className="container-sm list-users">
-          {users.length > 0 ? (
+          {loading ? (
+            <Spinner />
+          ) : (
             users.map(({ first_name, id, avatar, last_name }) => (
               <div className="media" key={id} id={id}>
                 <img src={avatar} className="mr-3" alt={first_name} />
@@ -134,14 +159,12 @@ function ListUser() {
                 </div>
               </div>
             ))
-          ) : (
-            <div className="no-result" role="alert">
-              no more profiles...
-            </div>
           )}
         </div>
-
         <DivNav>
+          <div className="title-no-users">
+            <p>No more users</p>
+          </div>
           <nav aria-label="Page navigation example">
             <ul className="pagination">
               <li className="page-item prev">
