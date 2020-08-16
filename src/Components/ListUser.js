@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
 import GetUsers from "../Services/GetUsers";
-
 import styled from "styled-components";
 import Spinner from "./Spinner";
+import Login from "./Login";
 
 // eslint-disable-next-line
 const DivListUser = styled.div`
@@ -66,37 +67,42 @@ function ListUser() {
     GetUsers(count).then((data) => {
       // eslint-disable-next-line
       var tmp = localStorage;
-      setTimeout(() => {
-        if (localStorage.length > 0) {
-          let arrayLocalStorage = [];
-          let newObject = data;
-          for (var i in tmp) {
-            if (typeof tmp[i] == "function") continue;
-            if (typeof tmp[i] == "number") continue;
-            if (tmp[i].includes("avatar")) arrayLocalStorage.push(JSON.parse(tmp[i]));
-          }
-
-          if (arrayLocalStorage.length > 0) {
-            let editUsers = [...arrayLocalStorage, newObject].flat();
-            // Filtrar duplicados
-            let hash = {};
-            editUsers = editUsers.filter((o) => (hash[o.id] ? false : (hash[o.id] = true)));
-            //Ordenamos la lista de usuarios por id
-            var ordenArray = editUsers.sort((a, b) => a.id - b.id);
-            if (data[0] || data[5]) {
-              var max = data[5].id;
-              var min = data[0].id;
-              var usuarios = ordenArray.filter(({ id }) => id <= max && id >= min);
-              setUsers(usuarios);
-            } else {
-              setUsers([]);
+      if (localStorage.getItem("login")) {
+        setTimeout(() => {
+          if (localStorage.length > 1) {
+            let arrayLocalStorage = [];
+            let newObject = data;
+            for (var i in tmp) {
+              if (typeof tmp[i] == "function") continue;
+              if (typeof tmp[i] == "number") continue;
+              if (tmp[i].includes("avatar")) arrayLocalStorage.push(JSON.parse(tmp[i]));
             }
+
+            if (arrayLocalStorage.length > 0) {
+              let editUsers = [...arrayLocalStorage, newObject].flat();
+              // Filtrar duplicados
+              let hash = {};
+              editUsers = editUsers.filter((o) => (hash[o.id] ? false : (hash[o.id] = true)));
+              //Ordenamos la lista de usuarios por id
+              var ordenArray = editUsers.sort((a, b) => a.id - b.id);
+              if (data[0] || data[5]) {
+                var max = data[5].id;
+                var min = data[0].id;
+                var usuarios = ordenArray.filter(({ id }) => id <= max && id >= min);
+                setUsers(usuarios);
+              } else {
+                setUsers([]);
+              }
+            }
+          } else {
+            console.log(data);
+            setUsers(data);
           }
-        } else {
-          setUsers(data);
-        }
-        setLoading(false);
-      }, 500);
+          setLoading(false);
+        }, 700);
+      } else {
+        window.location.href = "/";
+      }
     });
   }, [count]);
 
@@ -117,7 +123,7 @@ function ListUser() {
     }
     nav > ul {
       li {
-        a {
+        button {
           font-weight: bold;
           color: #000f25;
           padding: 0.5em 1em;
@@ -129,7 +135,7 @@ function ListUser() {
       }
       .prev {
         display: ${count <= 1 ? "none" : "block"};
-        a {
+        button {
           border-radius: ${users.length < 1 ? "4px" : "auto"};
         }
       }
@@ -142,6 +148,9 @@ function ListUser() {
 
   return (
     <>
+    {
+      localStorage.getItem("login") ? <>
+      <Navbar />
       <DivListUser>
         <div className="container-sm list-users">
           {loading ? (
@@ -168,19 +177,20 @@ function ListUser() {
           <nav aria-label="Page navigation example">
             <ul className="pagination">
               <li className="page-item prev">
-                <a className="page-link" onClick={() => setCount(count - 1)} href="#">
+                <button className="page-link" onClick={() => setCount(count - 1)} href="#">
                   Previous
-                </a>
+                </button>
               </li>
               <li className="page-item">
-                <a className="page-link next" onClick={() => setCount(count + 1)} href="#">
+                <button className="page-link next" onClick={() => setCount(count + 1)} href="#">
                   Next
-                </a>
+                </button>
               </li>
             </ul>
           </nav>
         </DivNav>
-      </DivListUser>
+      </DivListUser></> : <Login/>
+}
     </>
   );
 }

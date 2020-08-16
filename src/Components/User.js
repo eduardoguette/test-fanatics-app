@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from "react";
 import singleUser from "../Services/singleUser";
 import styled from "styled-components";
-import gif from "../tenor.gif";
+import Navbar from "./Navbar"
 import { Link } from "react-router-dom";
 
 const DivMsg = styled.div`
@@ -103,7 +103,6 @@ function User() {
   const [users, setUsers] = useState([]);
   const [userDelete, setUserDelete] = useState(false);
 
-  const [newData, setnewData] = useState([]);
   const [userUpdate, setuserUpdate] = useState(false);
 
   let id = window.location.href.split("user/").pop().trim();
@@ -120,7 +119,7 @@ function User() {
       }
     }
     setUserDelete(false);
-  }, [userUpdate]);
+  }, [userUpdate, id, users.length]);
 
   const hadleform = () => {
     document.querySelector(".form").style.display = "block";
@@ -202,8 +201,9 @@ function User() {
   };
   return (
     <Fragment>
+      <Navbar/>
       <div className="container-btn back">
-        <Link to="/">
+        <Link to="/home">
           <svg xmlns="http://www.w3.org/2000/svg" height="34" viewBox="0 0 24 24" width="34">
             <path d="M0 0h24v24H0z" fill="none" />
             <path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21z" fill="white" />

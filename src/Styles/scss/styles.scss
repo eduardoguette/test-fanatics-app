@@ -19,6 +19,26 @@ body {
   width: 90%;
   margin: auto;
 }
+.container.log{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media screen and (max-width: 540px) {
   .container-btns {
     display: flex;
