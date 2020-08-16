@@ -56,7 +56,8 @@ body {
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 80px;
+      height: 80px !important;
+      width: 165px !important;
       &::after {
         bottom: 3.4em !important;
       }
