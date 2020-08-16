@@ -17,7 +17,10 @@ const DivFormulario = styled.div`
   color: white;
   padding: 2em;
   background-color: #160b29;
-  max-height: 380px;
+  max-height: 390px;
+  &:hover {
+    box-shadow: 0px 0px 20px #413557a4;
+  }
   h2 {
     margin-bottom: 1em;
     font-weight: 700;
@@ -120,11 +123,11 @@ function Login() {
           <h2>Login</h2>
           <form action="#" onSubmit={hadleLog}>
             <div className="form-group">
-              <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="eve.holt@reqres.in" />
+              <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="eve.holt@reqres.in" required/>
               <label>Username</label>
             </div>
             <div className="form-group">
-              <input type="password" className="form-control" id="exampleInputPassword1" />
+              <input type="password" className="form-control" id="exampleInputPassword1" required/>
               <label>Password</label>
             </div>
             <button type="submit" className="btn btn-primary">
@@ -147,7 +150,7 @@ async function entrar(email, pass) {
   };
   const headers = new Headers({
     "Content-Type": "application/json",
-    Accept: "application/json",
+    "Accept": "application/json",
   });
   const response = await fetch("https://reqres.in/api/login", {
     method: "POST",

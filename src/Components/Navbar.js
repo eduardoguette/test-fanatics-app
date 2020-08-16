@@ -90,7 +90,7 @@ function Navbar() {
     <DivNavBar>
       <nav className="navbar navbar-light ">
         <Link className="navbar-brand" to="/home">
-          <img className="logo-ppal" src={logo} height="70" alt="top" loading="lazy" />
+          <img className="logo-ppal" src={logo} height="70" alt="top" loading="lazy" /> 
         </Link>
         <div className="sesion">
           <DivProfile>

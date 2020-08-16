@@ -9,6 +9,7 @@ function App() {
 
   return (
     <Fragment>
+      
       <BrowserRouter>
         <Route exact path="/user/:id" component={User} />
         <Route exact path="/home" component={ListUser} />
