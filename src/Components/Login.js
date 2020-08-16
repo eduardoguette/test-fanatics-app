@@ -10,7 +10,7 @@ const DivLogo = styled.div`
 `;
 
 const DivFormulario = styled.div`
-  margin-top: 6em;
+  margin-top: 2em;
   display: flex;
   flex-direction: column;
   border-radius: 20px;

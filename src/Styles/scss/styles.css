@@ -56,6 +56,9 @@ body {
   .perfil ~ .list.active {
     right: 1.5em !important;
   }
+  .jLJrbo img {
+    height: 60px !important;
+  }
 }
 
 .back {
@@ -64,7 +67,7 @@ body {
   margin-bottom: 1em;
 }
 
-@media only screen and (max-device-width: 720px) {
+@media only screen and (max-device-width: 1024px) {
   .perfil ~ .list.active {
     display: -webkit-box;
     display: -ms-flexbox;
