@@ -77,7 +77,7 @@ body {
     width: 165px !important;
   }
   .perfil ~ .list.active::after {
-    bottom: 3.4em !important;
+    bottom: 3.8em !important;
   }
 }
 
