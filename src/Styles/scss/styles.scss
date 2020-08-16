@@ -51,11 +51,10 @@ body {
 
 @media only screen and (max-device-width: 720px) {
   .perfil {
-    border: 1px solid red !important;
     & ~ .list.active {
+      padding: 1em !important;
       &::after {
         bottom: 3.4em !important;
-      
       }
     }
   }

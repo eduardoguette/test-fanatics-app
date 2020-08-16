@@ -59,8 +59,8 @@ body {
 }
 
 @media only screen and (max-device-width: 720px) {
-  .perfil {
-    border: 1px solid red !important;
+  .perfil ~ .list.active {
+    padding: 1em !important;
   }
   .perfil ~ .list.active::after {
     bottom: 3.4em !important;
