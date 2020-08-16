@@ -8,11 +8,11 @@ const DivLogo = styled.div`
     height: 4em;
   }
 `;
+
 const DivFormulario = styled.div`
   margin-top: 6em;
   display: flex;
   flex-direction: column;
-  /* border: 1px solid red; */
   border-radius: 20px;
   color: white;
   padding: 2em;
@@ -85,33 +85,29 @@ function Login() {
   const hadleLog = (e) => {
     const email = document.querySelector("#exampleInputEmail1").value;
     const pass = document.querySelector("#exampleInputPassword1").value;
-    sessionStorage.setItem("email", email)
+    sessionStorage.setItem("email", email);
     e.preventDefault();
-    if (email.includes("@reqres.in")) {
-      entrar(email, pass).then((data) => {
-        const token = data.token
-        if (token === "QpwL5tke4Pnpja7X4") {
-          setTimeout(() => {
-            window.location.href = "/home";
-          }, 500);
-          
-        } else {
-          console.log("errror");
-        }
-        localStorage.setItem("login",token)
-      });
-    } else {
-      document.querySelector("#exampleInputEmail1").classList.add("face");
-      document.querySelector("#exampleInputPassword1").classList.add("face");
-      seterrorAutent(true);
-      setTimeout(() => {
-        document.querySelector("#exampleInputEmail1").classList.remove("face");
-        document.querySelector("#exampleInputPassword1").classList.remove("face");
+    //fetch
+    entrar(email, pass).then((data) => {
+      if (data.token) {
+        const token = data.token;
+        localStorage.setItem("login", token);
         setTimeout(() => {
-          seterrorAutent(false);
-        }, 3000);
-      }, 1000);
-    }
+          window.location.href = "/home";
+        }, 500);
+      } else {
+        document.querySelector("#exampleInputEmail1").classList.add("face");
+        document.querySelector("#exampleInputPassword1").classList.add("face");
+        seterrorAutent(true);
+        setTimeout(() => {
+          document.querySelector("#exampleInputEmail1").classList.remove("face");
+          document.querySelector("#exampleInputPassword1").classList.remove("face");
+          setTimeout(() => {
+            seterrorAutent(false);
+          }, 5000);
+        }, 1000);
+      }
+    });
   };
 
   return (
@@ -144,11 +140,7 @@ function Login() {
 
 export default Login;
 
-
-
-
 async function entrar(email, pass) {
-  var result;
   const user = {
     email: email,
     password: pass,
@@ -163,10 +155,7 @@ async function entrar(email, pass) {
     body: JSON.stringify(user),
   })
     .then((res) => res.json())
-    .then((json) => {
-      result = json;
-      return result;
-    })
+    .then((json) => json)
     .catch((err) => console.error("Error:", err));
   return response;
 }

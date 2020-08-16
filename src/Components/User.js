@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from "react";
 import singleUser from "../Services/singleUser";
 import styled from "styled-components";
-import Navbar from "./Navbar"
+import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
 
 const DivMsg = styled.div`
@@ -22,7 +22,7 @@ const DivUser = styled.div`
   button {
     margin: 2em;
   }
- 
+
   .spinner-grow,
   .done,
   .form,
@@ -33,15 +33,19 @@ const DivUser = styled.div`
     width: 300px;
     margin: auto;
   }
-  .check {
+  div[class="col py-3 check"] {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-
+    justify-content: flex-start;
     label {
-      text-align: center;
+      margin: 0;
+      margin-left: 1em;
+      text-align: left;
       font-weight: 400;
-      font-size: 0.8em !important;
+      small{
+        font-weight: 300;
+        line-height: .4em;
+      }
     }
   }
   img.avatar {
@@ -59,13 +63,13 @@ const DivUser = styled.div`
     -webkit-animation-duration: 1s;
     animation-name: animatebottom;
     animation-duration: 1s;
-    h2{
+    h2 {
       font-size: 1em;
     }
   }
   .delete {
     position: relative;
-    animation: fade .7s ease;
+    animation: fade 0.7s ease;
   }
   @keyframes fade {
     from {
@@ -124,6 +128,7 @@ function User() {
   const hadleform = () => {
     document.querySelector(".form").style.display = "block";
     document.querySelector(".container-btns").style.display = "none";
+    document.querySelector("#myDiv").style.display = "none";
   };
   const handleCancel = () => {
     document.querySelector(".form").style.display = "none";
@@ -145,23 +150,8 @@ function User() {
         if (document.getElementById("myDiv")) document.getElementById("myDiv").style.display = "none";
       }, 10000);
     }, 1000);
-    const user = {
-      first_name: name,
-      last_name: lastName,
-      email: email,
-    };
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    });
-    fetch("https://reqres.in/api/users", {
-      method: "POST",
-      headers: headers,
-      redirect: "follow",
-      mode: "cors",
-      body: JSON.stringify(user),
-    })
-      .then((res) => res.json())
+    //fetch
+    UpdateProfile(name, lastName, email)
       .then((json) => {
         const first_name = json.first_name;
         const last_name = json.last_name;
@@ -185,7 +175,6 @@ function User() {
           }, 1000);
         }
       })
-      .catch((err) => console.error("Error:", err));
   };
 
   const handleDelete = (e) => {
@@ -201,7 +190,7 @@ function User() {
   };
   return (
     <Fragment>
-      <Navbar/>
+      <Navbar />
       <div className="container-btn back">
         <Link to="/home">
           <svg xmlns="http://www.w3.org/2000/svg" height="34" viewBox="0 0 24 24" width="34">
@@ -232,7 +221,7 @@ function User() {
             <span className="sr-only">Loading...</span>
           </div>
           <div id="myDiv" className="animate-bottom">
-            <h2>Profile Updated! 🎉</h2>
+            <h2>Profile Updated! </h2>
           </div>
           <form action="#" onSubmit={handleSubmit} className="form container-md">
             <div className="form-col container">
@@ -246,8 +235,12 @@ function User() {
                 <input type="text" className="form-control email" placeholder="correo@correo.com" />
               </div>
               <div className="col py-3 check">
-                <input type="checkbox" id="ls" />
-                <label for="ls">¿Quieres que los cambios sean permanentes?</label>
+                <input type="checkbox" id="ls"/>
+                <label htmlFor="ls">Mantener cambios 
+                <br/>
+                <small>Los cambios se guardaran en LocalStorage</small>
+                </label>
+                
               </div>
               <button type="button" onClick={handleCancel} className="btn btn-warning">
                 Cancel
@@ -267,3 +260,26 @@ function User() {
   );
 }
 export default User;
+
+async function UpdateProfile(name, lastName, email) {
+  const user = {
+    first_name: name,
+    last_name: lastName,
+    email: email,
+  };
+  const headers = new Headers({
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  });
+  const response = await fetch("https://reqres.in/api/users", {
+    method: "PUT",
+    headers: headers,
+    redirect: "follow",
+    mode: "cors",
+    body: JSON.stringify(user),
+  })
+    .then((res) => res.json())
+    .then((json) => json)
+    .catch((err) => console.error("Error:", err));
+  return response;
+}

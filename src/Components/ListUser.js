@@ -58,14 +58,56 @@ const DivListUser = styled.div`
   }
 `;
 
+const DivNav = styled.div`
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  .title-no-users {
+    display: ${(props) => (props.users < 1 && props.loading === "false" ? "block" : "none")};
+    color: white;
+    text-align: center;
+    margin: 3em auto;
+    span {
+      text-align: center;
+    }
+  }
+  nav {
+    margin: auto;
+    ul {
+      li {
+        button {
+          font-weight: bold;
+          color: #000f25;
+          padding: 0.5em 1em;
+          font-size: 0.9em;
+        }
+      }
+    }
+    li:hover {
+      cursor: pointer;
+    }
+    .prev {
+      display: ${(props) => (props.count <= 1 ? "none" : "block")};
+      border-radius: ${(props) => (props.users < 1 ? "4px" : "auto")};
+    }
+    .next {
+      border-radius: ${(props) => (props.count <= 1 ? "4px" : "0 10px 10px 0")};
+      display: ${(props) => (props.users < 1 ? "none" : "block")};
+    }
+  }
+`;
+
 function ListUser() {
-  const [users, setUsers] = useState([]);
   const [count, setCount] = useState(1);
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     setLoading(true);
+    //fetch
     GetUsers(count).then((data) => {
-      // eslint-disable-next-line
       var tmp = localStorage;
       if (localStorage.getItem("login")) {
         setTimeout(() => {
@@ -106,91 +148,54 @@ function ListUser() {
     });
   }, [count]);
 
-  const DivNav = styled.div`
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    .title-no-users {
-      display: ${users.length < 1 && !loading ? "block" : "none"};
-      color: white;
-      text-align: center;
-      margin: 3em auto;
-      span {
-        text-align: center;
-      }
-    }
-    nav > ul {
-      li {
-        button {
-          font-weight: bold;
-          color: #000f25;
-          padding: 0.5em 1em;
-          font-size: 0.9em;
-        }
-      }
-      li:hover {
-        cursor: pointer;
-      }
-      .prev {
-        display: ${count <= 1 ? "none" : "block"};
-        button {
-          border-radius: ${users.length < 1 ? "4px" : "auto"};
-        }
-      }
-      .next {
-        border-radius: ${count <= 1 ? "4px" : "0 10px 10px 0"};
-        display: ${users.length < 1 ? "none" : "block"};
-      }
-    }
-  `;
-
   return (
     <>
-    {
-      localStorage.getItem("login") ? <>
-      <Navbar />
-      <DivListUser>
-        <div className="container-sm list-users">
-          {loading ? (
-            <Spinner />
-          ) : (
-            users.map(({ first_name, id, avatar, last_name }) => (
-              <div className="media" key={id} id={id}>
-                <img src={avatar} className="mr-3" alt={first_name} />
-                <div className="media-body">
-                  <strong>Name: </strong>
-                  <br />
-                  <Link to={`/user/${id}`}>
-                    {first_name} {last_name}
-                  </Link>
-                </div>
+      {localStorage.getItem("login") ? (
+        <>
+          <Navbar />
+          <DivListUser>
+            <div className="container-sm list-users">
+              {loading ? (
+                <Spinner />
+              ) : (
+                users.map(({ first_name, id, avatar, last_name }) => (
+                  <div className="media" key={id} id={id}>
+                    <img src={avatar} className="mr-3" alt={first_name} />
+                    <div className="media-body">
+                      <strong>Name: </strong>
+                      <Link to={`/user/${id}`}>
+                        <br />
+                        {first_name} {last_name}
+                      </Link>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+            <DivNav users={users.length} loading={loading.toString()} count={count}>
+              <div className="title-no-users">
+                <p>No more users</p>
               </div>
-            ))
-          )}
-        </div>
-        <DivNav>
-          <div className="title-no-users">
-            <p>No more users</p>
-          </div>
-          <nav aria-label="Page navigation example">
-            <ul className="pagination">
-              <li className="page-item prev">
-                <button className="page-link" onClick={() => setCount(count - 1)} href="#">
-                  Previous
-                </button>
-              </li>
-              <li className="page-item">
-                <button className="page-link next" onClick={() => setCount(count + 1)} href="#">
-                  Next
-                </button>
-              </li>
-            </ul>
-          </nav>
-        </DivNav>
-      </DivListUser></> : <Login/>
-}
+              <nav aria-label="Page navigation">
+                <ul className="pagination">
+                  <li className="page-item">
+                    <button className="page-link prev" onClick={() => setCount(count - 1)}>
+                      Previous
+                    </button>
+                  </li>
+                  <li className="page-item">
+                    <button className="page-link next" onClick={() => setCount(count + 1)}>
+                      Next
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+            </DivNav>
+          </DivListUser>
+        </>
+      ) : (
+        <Login />
+      )}
     </>
   );
 }

@@ -58,6 +58,12 @@ body {
   }
 }
 
+.back {
+  max-width: 290px;
+  margin: auto;
+  margin-bottom: 1em;
+}
+
 @media only screen and (max-device-width: 720px) {
   .perfil ~ .list.active {
     display: -webkit-box;
@@ -79,15 +85,5 @@ body {
   .perfil ~ .list.active::after {
     bottom: 3.8em !important;
   }
-}
-
-.back {
-  max-width: 290px;
-  margin: auto;
-  margin-bottom: 1em;
-}
-
-.back a {
-  margin-bottom: 1000em !important;
 }
 /*# sourceMappingURL=styles.css.map */

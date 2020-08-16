@@ -11,7 +11,7 @@ const DivError = styled.div`
 function ErrorAutentication() {
   return (
     <DivError>
-      <p>El nombre de usuario que ingresaste no pertenece a ninguna cuenta. Comprueba el nombre de usuario y vuelve a intentarlo.</p>
+      <p>Usuario no registrado. Comprueba el nombre de usuario y vuelve a intentarlo.</p>
     </DivError>
   );
 }
