@@ -38,14 +38,49 @@ function Navbar() {
     }, 300);
   };
   const DivProfile = styled.div`
-    
+    .list {
+      display: none;
+    }
     .perfil {
       height: 2.4em !important;
       width: 2.4em !important;
       cursor: pointer;
       padding: 0.2em;
-    }
-    
+      & ~ .list.active {
+        font-weight: 400;
+        display: block;
+        color: black;
+        text-align: center;
+        width: 150px;
+        height: 60px;
+        position: absolute;
+        top: 7em;
+        font-size: 0.8em;
+        z-index: 1;
+        right: 5.3em;
+        background-color: #dee2f8;
+        border-radius: 5px;
+        &::after {
+          content: "";
+          z-index: -1;
+          position: absolute;
+          height: 1em;
+          width: 1em;
+          bottom: 3.7em;
+          right: 2em;
+          background-color: #dee2f8;
+          transform: rotate(45deg);
+        }
+        label {
+          cursor: pointer;
+          &:hover {
+            color: #ff6464;
+          }
+        }
+        .c-email {
+          padding-top: 0.5em;
+        }
+      }
     }
   `;
   const handleClick = () => {
