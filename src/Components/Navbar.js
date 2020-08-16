@@ -54,7 +54,7 @@ function Navbar() {
         width: 150px;
         height: 60px;
         position: absolute;
-        top: 7em;
+        top: 6.5em;
         font-size: 0.8em;
         z-index: 1;
         right: 5.3em;

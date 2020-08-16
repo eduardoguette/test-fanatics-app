@@ -17,7 +17,7 @@ const DivFormulario = styled.div`
   color: white;
   padding: 2em;
   background-color: #160b29;
-  height: 360px;
+  max-height: 380px;
   h2 {
     margin-bottom: 1em;
     font-weight: 700;
