@@ -44,7 +44,7 @@ body {
   right: 5.3em;
   background-color: #dee2f8;
   border-radius: 5px;
-  &::after {
+  &:after {
     content: "";
     z-index: -1;
     position: absolute;
