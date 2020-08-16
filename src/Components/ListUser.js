@@ -11,6 +11,7 @@ const DivListUser = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  
   .list-users {
     height: 100%;
     margin: 1em auto;
@@ -64,6 +65,7 @@ const DivNav = styled.div`
   justify-content: center;
   flex-direction: column;
   text-align: center;
+  transition: 3s ease;
   .title-no-users {
     display: ${(props) => (props.users < 1 && props.loading === "false" ? "block" : "none")};
     color: white;

@@ -18,7 +18,6 @@ const DivUser = styled.div`
   justify-content: center;
   color: white;
   text-align: center;
-
   button {
     margin: 2em;
   }

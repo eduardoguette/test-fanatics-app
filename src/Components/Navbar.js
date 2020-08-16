@@ -50,6 +50,8 @@ const DivProfile = styled.div`
       right: 5.3em;
       background-color: #dee2f8;
       border-radius: 5px;
+
+      
       &::after {
         content: "";
         z-index: -1;
@@ -61,12 +63,27 @@ const DivProfile = styled.div`
         background-color: #dee2f8;
         transform: rotate(45deg);
       }
+
       label {
+        position: relative;
+        z-index: 9;
         cursor: pointer;
         &:hover {
           color: #ff6464;
         }
+        &:first-of-type {
+          border-bottom: 1px solid #5a5a5a2c;
+          padding-left: 1em;
+          padding-right: 1em;
+          padding-bottom: 0.3em;
+          text-align: center;
+        }
+        &:last-of-type {
+          position: relative;
+          bottom: 0.3em;
+        }
       }
+
       .c-email {
         padding-top: 0.5em;
       }
@@ -90,7 +107,7 @@ function Navbar() {
     <DivNavBar>
       <nav className="navbar navbar-light ">
         <Link className="navbar-brand" to="/home">
-          <img className="logo-ppal" src={logo} height="70" alt="top" loading="lazy" /> 
+          <img className="logo-ppal" src={logo} height="70" alt="top" loading="lazy" />
         </Link>
         <div className="sesion">
           <DivProfile>
