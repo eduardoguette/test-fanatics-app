@@ -52,7 +52,11 @@ body {
 @media only screen and (max-device-width: 720px) {
   .perfil {
     & ~ .list.active {
-      padding: 1em !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 80px;
       &::after {
         bottom: 3.4em !important;
       }
