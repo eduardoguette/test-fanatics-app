@@ -55,7 +55,7 @@ body {
   margin-bottom: 1em;
 }
 
-@media only screen and (max-device-width: 720px) {
+@media only screen and (max-device-width: 1024px) {
   .perfil {
     & ~ .list.active {
       display: flex;
