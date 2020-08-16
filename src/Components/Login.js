@@ -85,6 +85,7 @@ function Login() {
   const hadleLog = (e) => {
     const email = document.querySelector("#exampleInputEmail1").value;
     const pass = document.querySelector("#exampleInputPassword1").value;
+    sessionStorage.setItem("email", email)
     e.preventDefault();
     if (email.includes("@reqres.in")) {
       entrar(email, pass).then((data) => {
@@ -92,7 +93,7 @@ function Login() {
         if (token === "QpwL5tke4Pnpja7X4") {
           setTimeout(() => {
             window.location.href = "/home";
-          }, 2000);
+          }, 500);
           
         } else {
           console.log("errror");

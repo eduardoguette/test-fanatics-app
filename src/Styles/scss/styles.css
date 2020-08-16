@@ -48,6 +48,14 @@ body {
   .container-btns button {
     font-size: 0.7em;
   }
+  .navbar {
+    padding: 0 !important;
+    padding: 1.5em 1em !important;
+    margin: 0;
+  }
+  .perfil ~ .list.active {
+    right: 1.5em !important;
+  }
 }
 
 .back {

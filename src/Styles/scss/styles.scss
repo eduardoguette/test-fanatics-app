@@ -3,13 +3,14 @@ $AzulBackgroud: #2c1654;
 $Red: #ff6464;
 $verde: #00be65;
 $amarillo: #fdbf50;
-$test: #f1fd50;
+$linear: linear-gradient(to bottom, #2c1654 10%, #552121 100%);
+$test: #dee2f8;
 body {
   min-height: 100vh;
   width: 100%;
   font-size: 1.2em;
   margin: auto;
-  background-image: linear-gradient(to bottom, #2c1654 10%, #552121 100%);
+  background-image: $linear;
   background-repeat: no-repeat;
   font-family: Montserrat;
 }
@@ -19,25 +20,13 @@ body {
   width: 90%;
   margin: auto;
 }
-.container.log{
+.container.log {
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 @media screen and (max-width: 540px) {
   .container-btns {
@@ -48,8 +37,17 @@ body {
       font-size: 0.7em;
     }
   }
+  .navbar {
+    padding: 0 !important;
+    padding: 1.5em 1em !important;
+    margin: 0;
+  }
+  .perfil {
+    & ~ .list.active {
+      right: 1.5em !important;
+    }
+  }
 }
-
 .back {
   max-width: 290px;
   margin: auto;
