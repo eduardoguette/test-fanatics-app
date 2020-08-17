@@ -1,4 +1,4 @@
-function singleUser(id = 1) {
+function singleUser(id) {
   let apiUrl = `https://reqres.in/api/users/${id}`;
 
   return fetch(apiUrl)

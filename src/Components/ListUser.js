@@ -11,7 +11,7 @@ const DivListUser = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  
+
   .list-users {
     height: 100%;
     margin: 1em auto;
@@ -58,7 +58,10 @@ const DivListUser = styled.div`
     }
   }
 `;
-
+const DivNoResult = styled.div`
+  color: white;
+  text-align: center;
+`
 const DivNav = styled.div`
   margin: auto;
   display: flex;
@@ -110,18 +113,19 @@ function ListUser() {
     setLoading(true);
     //fetch
     GetUsers(count).then((data) => {
-      var tmp = localStorage;
+      var LS = localStorage;
       if (localStorage.getItem("login")) {
         setTimeout(() => {
           if (localStorage.length > 1) {
+            // Comprobamos si existe el token en el localstorage
             let arrayLocalStorage = [];
             let newObject = data;
-            for (var i in tmp) {
-              if (typeof tmp[i] == "function") continue;
-              if (typeof tmp[i] == "number") continue;
-              if (tmp[i].includes("avatar")) arrayLocalStorage.push(JSON.parse(tmp[i]));
-            }
 
+            for (var i in LS) {
+              if (typeof LS[i] == "function") continue;
+              if (typeof LS[i] == "number") continue;
+              if (LS[i].includes("avatar")) arrayLocalStorage.push(JSON.parse(LS[i]));
+            }
             if (arrayLocalStorage.length > 0) {
               let editUsers = [...arrayLocalStorage, newObject].flat();
               // Filtrar duplicados
@@ -139,7 +143,6 @@ function ListUser() {
               }
             }
           } else {
-            console.log(data);
             setUsers(data);
           }
           setLoading(false);
@@ -155,45 +158,49 @@ function ListUser() {
       {localStorage.getItem("login") ? (
         <>
           <Navbar />
-          <DivListUser>
-            <div className="container-sm list-users">
-              {loading ? (
-                <Spinner />
-              ) : (
-                users.map(({ first_name, id, avatar, last_name }) => (
-                  <div className="media" key={id} id={id}>
-                    <img src={avatar} className="mr-3" alt={first_name} />
-                    <div className="media-body">
-                      <strong>Name: </strong>
-                      <Link to={`/user/${id}`}>
-                        <br />
-                        {first_name} {last_name}
-                      </Link>
+          {users ? (
+            <DivListUser>
+              <div className="container-sm list-users">
+                {loading ? (
+                  <Spinner />
+                ) : (
+                  users.map(({ first_name, id, avatar, last_name }) => (
+                    <div className="media" key={id} id={id}>
+                      <img src={avatar} className="mr-3" alt={first_name} />
+                      <div className="media-body">
+                        <strong>Name: </strong>
+                        <Link to={`/user/${id}`}>
+                          <br />
+                          {first_name} {last_name}
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                ))
-              )}
-            </div>
-            <DivNav users={users.length} loading={loading.toString()} count={count}>
-              <div className="title-no-users">
-                <p>No more users</p>
+                  ))
+                )}
               </div>
-              <nav aria-label="Page navigation">
-                <ul className="pagination">
-                  <li className="page-item">
-                    <button className="page-link prev" onClick={() => setCount(count - 1)}>
-                      Previous
-                    </button>
-                  </li>
-                  <li className="page-item">
-                    <button className="page-link next" onClick={() => setCount(count + 1)}>
-                      Next
-                    </button>
-                  </li>
-                </ul>
-              </nav>
-            </DivNav>
-          </DivListUser>
+              <DivNav users={users.length} loading={loading.toString()} count={count}>
+                <div className="title-no-users">
+                  <p>No more users</p>
+                </div>
+                <nav aria-label="Page navigation">
+                  <ul className="pagination">
+                    <li className="page-item">
+                      <button className="page-link prev" onClick={() => setCount(count - 1)}>
+                        Previous
+                      </button>
+                    </li>
+                    <li className="page-item">
+                      <button className="page-link next" onClick={() => setCount(count + 1)}>
+                        Next
+                      </button>
+                    </li>
+                  </ul>
+                </nav>
+              </DivNav>
+            </DivListUser>
+          ) : (
+            <DivNoResult>Ha ocurrido un error, intentalo de nuevo mas tarde</DivNoResult>
+          )}
         </>
       ) : (
         <Login />

@@ -11,7 +11,7 @@ const DivError = styled.div`
 function ErrorAutentication() {
   return (
     <DivError>
-      <p>Usuario no registrado. Comprueba el nombre de usuario y vuelve a intentarlo.</p>
+      <p>Usuario no registrado.</p>
     </DivError>
   );
 }
